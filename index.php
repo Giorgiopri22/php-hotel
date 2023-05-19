@@ -12,13 +12,22 @@
 </head>
 <body>
 <div class="container">
-        <form action="index.php">
-            
+<form method="GET" action="index.php">
+        <div class="form-group">
+            <label for="parking">Filter by Parking:</label>
+            <select class="form-control" id="parking" name="parking">
+                <option value="1">All</option>
+                <option value="2">Yes</option>
+                <option value="3">No</option>
+            </select>
+        </div>
 
-        </form>
+        <?php
+            if()
+        ?>
 
 
-        <h1>>LISTA HOTEL</h1>
+        <h1>LISTA HOTEL</h1>
         <table class="table">
             <thead>
                 <tr>
