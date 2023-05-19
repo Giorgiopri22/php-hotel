@@ -16,14 +16,31 @@
         <div class="form-group">
             <label for="parking">Filter by Parking:</label>
             <select class="form-control" id="parking" name="parking">
-                <option value="1">All</option>
-                <option value="2">Yes</option>
-                <option value="3">No</option>
+                <option value="All">All</option>
+                <option value= "yes" >Yes</option>
+                <option value="no">No</option>
             </select>
         </div>
 
+        <div class="form-group">
+            <label for="voto">Filter by Vote:</label>
+            <select class="form-control" id="vote" name="voto">
+                <option value="All">All</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </div>
+        <input type="submit">
+
         <?php
-            if()
+           $parcheggio = $_GET['parking'];
+           $voto = $_GET['voto'] ;
+           
+           var_dump( $parcheggio , $voto);
+           
         ?>
 
 
@@ -77,16 +94,79 @@
                         'distance_to_center' => 50
                     ],
                 ];
+                
 
-                foreach ($hotels as $index) {
-                    echo '<tr>';
-                    echo '<td>' . $index['name'] . '</td>';
-                    echo '<td>' . $index['description'] . '</td>';
-                    echo '<td>' . ($index['parking'] ? 'Disponibile' : 'Non disponibile') . '</td>';
-                    echo '<td>' . $index['vote'] . '</td>';
-                    echo '<td>' . $index['distance_to_center'] . '</td>';
-                    echo '</tr>';
-                }
+                // if($parcheggio == 'yes') {
+                //     foreach ($hotels as $index) {
+                //         if($index['parking'] == true){
+                //             echo '<tr>';
+                //             echo '<td>' . $index['name'] . '</td>';
+                //             echo '<td>' . $index['description'] . '</td>';
+                //             echo '<td>' . ($index['parking'] ? 'Disponibile' : 'Non disponibile') . '</td>';
+                //             echo '<td>' . $index['vote'] . '</td>';
+                //             echo '<td>' . $index['distance_to_center'] . '</td>';
+                //             echo '</tr>';
+                //         }else($index['parking'] !== true)
+                //     }
+                // }
+
+                
+                
+                
+                 if( $parcheggio == "yes"){
+                     $parkBoolT = true;
+                    
+                     var_dump($parkBoolT . 'true');
+                 } 
+                 elseif($parcheggio == "no"){
+                     $parkBoolF = false;
+                     var_dump($parkBoolF . 'false'); 
+                 }
+            
+                
+            
+               
+                      foreach ($hotels as $index) {
+                         if($parkBoolT == $index['parking'] && $voto == 'All' ){
+                             var_dump('parktrue' . $index['parking']);
+                              echo '<tr>';
+                              echo '<td>' . $index['name'] . '</td>';
+                              echo '<td>' . $index['description'] . '</td>';
+                              echo '<td>' . ($index['parking'] ? 'Disponibile' : 'Non disponibile') . '</td>';
+                              echo '<td>' . $index['vote'] . '</td>';
+                              echo '<td>' . $index['distance_to_center'] . '</td>';
+                              echo '</tr>';
+                            }elseif($parkBoolF == $index['parking'] && $voto == 'All' ){
+                                var_dump('parkfalse' . $index['parking']);
+                                echo '<tr>';
+                                echo '<td>' . $index['name'] . '</td>';
+                                echo '<td>' . $index['description'] . '</td>';
+                                echo '<td>' . ($index['parking'] ? 'Disponibile' : 'Non disponibile') . '</td>';
+                                echo '<td>' . $index['vote'] . '</td>';
+                                echo '<td>' . $index['distance_to_center'] . '</td>';
+                                echo '</tr>';
+                            }
+                         elseif($index['vote'] >= $voto ){
+                            echo '<tr>';
+                              echo '<td>' . $index['name'] . '</td>';
+                              echo '<td>' . $index['description'] . '</td>';
+                              echo '<td>' . ($index['parking'] ? 'Disponibile' : 'Non disponibile') . '</td>';
+                              echo '<td>' . $index['vote'] . '</td>';
+                              echo '<td>' . $index['distance_to_center'] . '</td>';
+                              echo '</tr>';
+                         }
+                         elseif ($voto == 'All' && $parcheggio == 'All') {
+                             var_dump();
+                        
+                             echo '<tr>';
+                             echo '<td>' . $index['name'] . '</td>';
+                             echo '<td>' . $index['description'] . '</td>';
+                             echo '<td>' . ($index['parking'] ? 'Disponibile' : 'Non disponibile') . '</td>';
+                             echo '<td>' . $index['vote'] . '</td>';
+                             echo '<td>' . $index['distance_to_center'] . '</td>';
+                             echo '</tr>';
+                         }
+                     }
                 ?>
             </tbody>
         </table>
