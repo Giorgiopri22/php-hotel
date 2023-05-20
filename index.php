@@ -17,8 +17,8 @@
             <label for="parking">Filter by Parking:</label>
             <select class="form-control" id="parking" name="parking">
                 <option value="All">All</option>
-                <option value= "yes" >Yes</option>
-                <option value="no">No</option>
+                <option value= "true" >Yes</option>
+                <option value="false">No</option>
             </select>
         </div>
 
@@ -113,60 +113,47 @@
                 
                 
                 
-                 if( $parcheggio == "yes"){
-                     $parkBoolT = true;
                     
-                     var_dump($parkBoolT . 'true');
-                 } 
-                 elseif($parcheggio == "no"){
-                     $parkBoolF = false;
-                     var_dump($parkBoolF . 'false'); 
-                 }
             
                 
             
                
-                      foreach ($hotels as $index) {
-                         if($parkBoolT == $index['parking'] && $voto == 'All' ){
-                             var_dump('parktrue' . $index['parking']);
-                              echo '<tr>';
-                              echo '<td>' . $index['name'] . '</td>';
-                              echo '<td>' . $index['description'] . '</td>';
-                              echo '<td>' . ($index['parking'] ? 'Disponibile' : 'Non disponibile') . '</td>';
-                              echo '<td>' . $index['vote'] . '</td>';
-                              echo '<td>' . $index['distance_to_center'] . '</td>';
-                              echo '</tr>';
-                            }elseif($parkBoolF == $index['parking'] && $voto == 'All' ){
-                                var_dump('parkfalse' . $index['parking']);
-                                echo '<tr>';
-                                echo '<td>' . $index['name'] . '</td>';
-                                echo '<td>' . $index['description'] . '</td>';
-                                echo '<td>' . ($index['parking'] ? 'Disponibile' : 'Non disponibile') . '</td>';
-                                echo '<td>' . $index['vote'] . '</td>';
-                                echo '<td>' . $index['distance_to_center'] . '</td>';
-                                echo '</tr>';
-                            }
-                         elseif($index['vote'] >= $voto ){
+                    foreach ($hotels as $index) {
+                        if(  $index['parking'] == ($_GET['parking'] === 'true') && $voto == 'All' ){
+                        //  var_dump('parktrue' . $index['parking']);
                             echo '<tr>';
-                              echo '<td>' . $index['name'] . '</td>';
-                              echo '<td>' . $index['description'] . '</td>';
-                              echo '<td>' . ($index['parking'] ? 'Disponibile' : 'Non disponibile') . '</td>';
-                              echo '<td>' . $index['vote'] . '</td>';
-                              echo '<td>' . $index['distance_to_center'] . '</td>';
-                              echo '</tr>';
-                         }
-                         elseif ($voto == 'All' && $parcheggio == 'All') {
-                             var_dump();
-                        
-                             echo '<tr>';
-                             echo '<td>' . $index['name'] . '</td>';
-                             echo '<td>' . $index['description'] . '</td>';
-                             echo '<td>' . ($index['parking'] ? 'Disponibile' : 'Non disponibile') . '</td>';
-                             echo '<td>' . $index['vote'] . '</td>';
-                             echo '<td>' . $index['distance_to_center'] . '</td>';
-                             echo '</tr>';
-                         }
-                     }
+                            echo '<td>' . $index['name'] . '</td>';
+                            echo '<td>' . $index['description'] . '</td>';
+                            echo '<td>' . ($index['parking'] ? 'Disponibile' : 'Non disponibile') . '</td>';
+                            echo '<td>' . $index['vote'] . '</td>';
+                            echo '<td>' . $index['distance_to_center'] . '</td>';
+                            echo '</tr>';
+                        }elseif($index['vote'] >= $voto && $_GET['parking'] == "All"){
+                            echo '<tr>';
+                            echo '<td>' . $index['name'] . '</td>';
+                            echo '<td>' . $index['description'] . '</td>';
+                            echo '<td>' . ($index['parking'] ? 'Disponibile' : 'Non disponibile') . '</td>';
+                            echo '<td>' . $index['vote'] . '</td>';
+                            echo '<td>' . $index['distance_to_center'] . '</td>';
+                            echo '</tr>';
+                        }elseif($index['parking'] == ($_GET['parking'] === 'true') && $index['vote'] >= $voto){
+                            echo '<tr>';
+                            echo '<td>' . $index['name'] . '</td>';
+                            echo '<td>' . $index['description'] . '</td>';
+                            echo '<td>' . ($index['parking'] ? 'Disponibile' : 'Non disponibile') . '</td>';
+                            echo '<td>' . $index['vote'] . '</td>';
+                            echo '<td>' . $index['distance_to_center'] . '</td>';
+                            echo '</tr>';
+                        }elseif ($voto == 'All' && $parcheggio == 'All') {                        
+                            echo '<tr>';
+                            echo '<td>' . $index['name'] . '</td>';
+                            echo '<td>' . $index['description'] . '</td>';
+                            echo '<td>' . ($index['parking'] ? 'Disponibile' : 'Non disponibile') . '</td>';
+                            echo '<td>' . $index['vote'] . '</td>';
+                            echo '<td>' . $index['distance_to_center'] . '</td>';
+                            echo '</tr>';
+                        }
+                    }
                 ?>
             </tbody>
         </table>
